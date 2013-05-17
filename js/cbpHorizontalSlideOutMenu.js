@@ -33,6 +33,7 @@
 		defaults : {},
 		_init : function() {
 			this.current = -1;
+			this.touch = Modernizr.touch;
 			this.menu = this.el.querySelector( '.cbp-hsmenu' );
 			this.menuItems = this.el.querySelectorAll( '.cbp-hsmenu > li' );
 			this.menuBg = document.createElement( 'div' );
@@ -86,8 +87,12 @@
 			var self = this;
 
 			Array.prototype.slice.call( this.menuItems ).forEach( function( el, i ) {
-				el.addEventListener( 'click', function( ev ) { self._openMenu( this, ev ); } );
-				el.addEventListener( 'touchstart', function( ev ) { self._openMenu( this, ev ); } );
+				if( self.touch ) {
+					el.addEventListener( 'touchstart', function( ev ) { self._openMenu( this, ev ); } );
+				}
+				else {
+					el.addEventListener( 'click', function( ev ) { self._openMenu( this, ev ); } );	
+				}
 			} );
 			
 			window.addEventListener( 'resize', function( ev ) { self._resizeHandler(); } );

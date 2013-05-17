@@ -201,6 +201,10 @@
 	top: 100%;
 	left: 0;
 	z-index: 0;
+	height: 0px;
+}
+
+.no-touch .cbp-hsmenubg {
 	-webkit-transition: height 0.3s;
 	-moz-transition: height 0.3s;
 	transition: height 0.3s;
