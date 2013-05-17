@@ -44,8 +44,9 @@
 		_openMenu : function( el, ev ) {
 			
 			var self = this,
+				item = el.parentNode,
 				items = Array.prototype.slice.call( this.menuItems ),
-				submenu = el.querySelector( '.cbp-hssubmenu' ),
+				submenu = item.querySelector( '.cbp-hssubmenu' ),
 				closeCurrent = function( current ) {
 					var current = current || self.menuItems[ self.current ];
 					current.className = '';
@@ -60,17 +61,17 @@
 
 				ev.preventDefault();
 
-				if( el.getAttribute( 'data-open' ) === 'open' ) {
-					closeCurrent( el );
+				if( item.getAttribute( 'data-open' ) === 'open' ) {
+					closeCurrent( item );
 					closePanel();
 				}
 				else {
-					el.setAttribute( 'data-open', 'open' );
+					item.setAttribute( 'data-open', 'open' );
 					if( self.current !== -1 ) {
 						closeCurrent();
 					}
-					self.current = items.indexOf( el );
-					el.className = 'cbp-hsitem-open';
+					self.current = items.indexOf( item );
+					item.className = 'cbp-hsitem-open';
 					self.menuBg.style.height = submenu.offsetHeight + 'px';
 				}
 			}
@@ -87,11 +88,12 @@
 			var self = this;
 
 			Array.prototype.slice.call( this.menuItems ).forEach( function( el, i ) {
+				var trigger = el.querySelector( 'a' );
 				if( self.touch ) {
-					el.addEventListener( 'touchstart', function( ev ) { self._openMenu( this, ev ); } );
+					trigger.addEventListener( 'touchstart', function( ev ) { self._openMenu( this, ev ); } );
 				}
 				else {
-					el.addEventListener( 'click', function( ev ) { self._openMenu( this, ev ); } );	
+					trigger.addEventListener( 'click', function( ev ) { self._openMenu( this, ev ); } );	
 				}
 			} );
 			
